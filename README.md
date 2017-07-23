@@ -1,1 +1,1 @@
-# TrainSimulator
+The SSDAC system is Digital Axle Counter that counts the train wheels. To simulate and test the SSDAC system, Electronic and Real Time Train Simulator is required. The Electronic Train Simulator simulates train wheels in forward and reverse direction and different wheel counts
