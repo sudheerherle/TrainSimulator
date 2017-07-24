@@ -1,0 +1,4 @@
+*.class
+*.netbeans_automatic_build
+/TrainSimulator/build
+/TrainSimulator/dist
