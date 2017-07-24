@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
+import javax.swing.JProgressBar;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
 import trainsimulator.common.SharedData;
@@ -727,7 +728,8 @@ private void rBtnReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void BtnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnStartActionPerformed
     long interval = Long.valueOf(intervaltxtfield.getText()) * 60 * 1000;
-    timer_test.scheduleAtFixedRate(Test_Task, 0, interval); 
+    timer_test.scheduleAtFixedRate(Test_Task, 0, interval);
+    BtnStart.setEnabled(false);
 }//GEN-LAST:event_BtnStartActionPerformed
 
 private void Sleep(long time){
@@ -1115,11 +1117,16 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             private int test_count = 0;
             @Override
             public void run() {
-                if(test_count>= (long)Long.valueOf(trainCounts.getText())){
+                if(test_count>= (long)Long.valueOf(trainCounts.getText())-1){
                     this.cancel();
                     controlAllButtons(true);
+                    BtnStart.setEnabled(true);
                 }else{
                     controlAllButtons(false);
+                    int progress = (int) ((int)(100*test_count)/((long)Long.valueOf(trainCounts.getText()) * 4));
+//                    progressBar.setMaximum(0);
+//                    progressBar.setMaximum(100);
+//                    progressBar.setValue(progress);
                 }
                for(int p=0;p<simulatorPanels.length;p++){ 
                if(simulatorPanels[p]== null) break;
