@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import org.jdesktop.application.SingleFrameApplication;
@@ -81,6 +83,24 @@ public class TrainSimulatorView extends FrameView {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        testSchedulerPanel = new javax.swing.JPanel();
+        jLabel56 = new javax.swing.JLabel();
+        schedulerspeed = new javax.swing.JTextField();
+        jLabel57 = new javax.swing.JLabel();
+        schedulercount = new javax.swing.JTextField();
+        jPanel6 = new javax.swing.JPanel();
+        randomrbtn = new javax.swing.JRadioButton();
+        fixedrbtn = new javax.swing.JRadioButton();
+        intervaltxtfield = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        rbtn12hr = new javax.swing.JRadioButton();
+        rbtn24hr = new javax.swing.JRadioButton();
+        rbtncustom = new javax.swing.JRadioButton();
+        durationtxtfield = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        BtnStart = new javax.swing.JButton();
+        BtnStop = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -97,17 +117,7 @@ public class TrainSimulatorView extends FrameView {
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(trainsimulator.TrainSimulatorApp.class).getContext().getResourceMap(TrainSimulatorView.class);
         SimulationPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("SimulationPanel.border.title"), 0, 0, resourceMap.getFont("SimulationPanel.border.titleFont"))); // NOI18N
         SimulationPanel.setName("SimulationPanel"); // NOI18N
-
-        javax.swing.GroupLayout SimulationPanelLayout = new javax.swing.GroupLayout(SimulationPanel);
-        SimulationPanel.setLayout(SimulationPanelLayout);
-        SimulationPanelLayout.setHorizontalGroup(
-            SimulationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 779, Short.MAX_VALUE)
-        );
-        SimulationPanelLayout.setVerticalGroup(
-            SimulationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 312, Short.MAX_VALUE)
-        );
+        SimulationPanel.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel1.setName("jPanel1"); // NOI18N
 
@@ -200,7 +210,7 @@ public class TrainSimulatorView extends FrameView {
         ConfigPanel.setName("ConfigPanel"); // NOI18N
 
         configCombo.setFont(resourceMap.getFont("configCombo.font")); // NOI18N
-        configCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2D1S", "3D1S", "3D2S", "TWS", "Others" }));
+        configCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2D1S", "3D1S", "3D2S", "3D3S", "4D1S", "LCWS", "Others" }));
         configCombo.setName("configCombo"); // NOI18N
         configCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -254,7 +264,7 @@ public class TrainSimulatorView extends FrameView {
                 .addComponent(ModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -289,7 +299,7 @@ public class TrainSimulatorView extends FrameView {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addGap(10, 10, 10)
-                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 1121, Short.MAX_VALUE)
+                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 1076, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(connection_indicator_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -342,15 +352,13 @@ public class TrainSimulatorView extends FrameView {
         Counter_fwdLayout.setVerticalGroup(
             Counter_fwdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Counter_fwdLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(Counter_fwdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel5))
                 .addGap(11, 11, 11)
                 .addGroup(Counter_fwdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel6))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel6)))
         );
 
         counter_rev.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("counter_rev.border.title"))); // NOI18N
@@ -382,22 +390,198 @@ public class TrainSimulatorView extends FrameView {
                     .addComponent(jLabel8))
                 .addGap(17, 17, 17)
                 .addGroup(counter_revLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))
                 .addContainerGap())
         );
         counter_revLayout.setVerticalGroup(
             counter_revLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(counter_revLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(counter_revLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(jLabel9))
-                .addGap(11, 11, 11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(counter_revLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel10))
+                    .addComponent(jLabel10)))
+        );
+
+        testSchedulerPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("testSchedulerPanel.border.title"))); // NOI18N
+        testSchedulerPanel.setName("testSchedulerPanel"); // NOI18N
+
+        jLabel56.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel56.setText(resourceMap.getString("jLabel56.text")); // NOI18N
+        jLabel56.setName("jLabel56"); // NOI18N
+
+        schedulerspeed.setText(resourceMap.getString("schedulerspeed.text")); // NOI18N
+        schedulerspeed.setName("schedulerspeed"); // NOI18N
+
+        jLabel57.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel57.setText(resourceMap.getString("jLabel57.text")); // NOI18N
+        jLabel57.setName("jLabel57"); // NOI18N
+
+        schedulercount.setText(resourceMap.getString("schedulercount.text")); // NOI18N
+        schedulercount.setName("schedulercount"); // NOI18N
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel6.border.title"))); // NOI18N
+        jPanel6.setName("jPanel6"); // NOI18N
+
+        randomrbtn.setText(resourceMap.getString("randomrbtn.text")); // NOI18N
+        randomrbtn.setName("randomrbtn"); // NOI18N
+
+        fixedrbtn.setText(resourceMap.getString("fixedrbtn.text")); // NOI18N
+        fixedrbtn.setName("fixedrbtn"); // NOI18N
+
+        intervaltxtfield.setText(resourceMap.getString("intervaltxtfield.text")); // NOI18N
+        intervaltxtfield.setName("intervaltxtfield"); // NOI18N
+
+        jLabel13.setText(resourceMap.getString("jLabel13.text")); // NOI18N
+        jLabel13.setName("jLabel13"); // NOI18N
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(randomrbtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(fixedrbtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(intervaltxtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel13)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(randomrbtn)
+                    .addComponent(fixedrbtn)
+                    .addComponent(jLabel13)
+                    .addComponent(intervaltxtfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel7.border.title"))); // NOI18N
+        jPanel7.setName("jPanel7"); // NOI18N
+
+        rbtn12hr.setText(resourceMap.getString("rbtn12hr.text")); // NOI18N
+        rbtn12hr.setName("rbtn12hr"); // NOI18N
+
+        rbtn24hr.setText(resourceMap.getString("rbtn24hr.text")); // NOI18N
+        rbtn24hr.setName("rbtn24hr"); // NOI18N
+
+        rbtncustom.setText(resourceMap.getString("rbtncustom.text")); // NOI18N
+        rbtncustom.setName("rbtncustom"); // NOI18N
+
+        durationtxtfield.setText(resourceMap.getString("durationtxtfield.text")); // NOI18N
+        durationtxtfield.setName("durationtxtfield"); // NOI18N
+
+        jLabel14.setText(resourceMap.getString("jLabel14.text")); // NOI18N
+        jLabel14.setName("jLabel14"); // NOI18N
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(rbtn12hr)
+                .addGap(18, 18, 18)
+                .addComponent(rbtn24hr)
+                .addGap(18, 18, 18)
+                .addComponent(rbtncustom)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(durationtxtfield, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14)
+                .addContainerGap(64, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtn12hr)
+                    .addComponent(rbtn24hr)
+                    .addComponent(rbtncustom)
+                    .addComponent(durationtxtfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        BtnStart.setBackground(resourceMap.getColor("BtnStart.background")); // NOI18N
+        BtnStart.setFont(resourceMap.getFont("BtnStart.font")); // NOI18N
+        BtnStart.setText(resourceMap.getString("BtnStart.text")); // NOI18N
+        BtnStart.setName("BtnStart"); // NOI18N
+        BtnStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnStartActionPerformed(evt);
+            }
+        });
+
+        BtnStop.setBackground(resourceMap.getColor("BtnStop.background")); // NOI18N
+        BtnStop.setFont(resourceMap.getFont("BtnStop.font")); // NOI18N
+        BtnStop.setForeground(resourceMap.getColor("BtnStop.foreground")); // NOI18N
+        BtnStop.setText(resourceMap.getString("BtnStop.text")); // NOI18N
+        BtnStop.setName("BtnStop"); // NOI18N
+        BtnStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnStopActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout testSchedulerPanelLayout = new javax.swing.GroupLayout(testSchedulerPanel);
+        testSchedulerPanel.setLayout(testSchedulerPanelLayout);
+        testSchedulerPanelLayout.setHorizontalGroup(
+            testSchedulerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testSchedulerPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(testSchedulerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(testSchedulerPanelLayout.createSequentialGroup()
+                        .addGroup(testSchedulerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel57)
+                            .addComponent(jLabel56, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(testSchedulerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(testSchedulerPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(schedulerspeed, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, testSchedulerPanelLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(schedulercount, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(44, 44, 44)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(testSchedulerPanelLayout.createSequentialGroup()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(BtnStart)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(156, Short.MAX_VALUE))
+        );
+        testSchedulerPanelLayout.setVerticalGroup(
+            testSchedulerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(testSchedulerPanelLayout.createSequentialGroup()
+                .addGroup(testSchedulerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(testSchedulerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel57)
+                        .addGroup(testSchedulerPanelLayout.createSequentialGroup()
+                            .addGroup(testSchedulerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel56)
+                                .addComponent(schedulerspeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(schedulercount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(testSchedulerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(testSchedulerPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(testSchedulerPanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(testSchedulerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnStop)
+                            .addComponent(BtnStart)))))
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -407,16 +591,18 @@ public class TrainSimulatorView extends FrameView {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainPanelLayout.createSequentialGroup()
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(testSchedulerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(mainPanelLayout.createSequentialGroup()
                                 .addComponent(Counter_fwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
                                 .addComponent(counter_rev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(SimulationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(SimulationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 746, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 4, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
@@ -424,17 +610,21 @@ public class TrainSimulatorView extends FrameView {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(SimulationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Counter_fwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(counter_rev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(counter_rev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(testSchedulerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        mainPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Counter_fwd, counter_rev});
 
         menuBar.setName("menuBar"); // NOI18N
 
@@ -488,10 +678,10 @@ public class TrainSimulatorView extends FrameView {
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
             statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 1255, Short.MAX_VALUE)
+            .addComponent(statusPanelSeparator, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
             .addGroup(statusPanelLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 1235, Short.MAX_VALUE)
+                .addComponent(progressBar, javax.swing.GroupLayout.DEFAULT_SIZE, 1180, Short.MAX_VALUE)
                 .addContainerGap())
         );
         statusPanelLayout.setVerticalGroup(
@@ -552,6 +742,41 @@ private void rBtnReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
             sharedData.FwdRev=2;
         }
 }//GEN-LAST:event_rBtnReverseActionPerformed
+
+private void BtnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnStartActionPerformed
+    
+     Thread test = new Thread(new Runnable() {
+
+        public void run()
+        {
+           for(int p=0;p<simulatorPanels.length;p++){ 
+           if(simulatorPanels[p]== null) break;
+           simulatorPanels[p].TxtCount.setText(schedulercount.getText());
+           simulatorPanels[p].TxtSpeed.setText(schedulerspeed.getText());
+           simulatorPanels[p].BtnStart.doClick();
+           simulatorPanels[p].repaint();
+           simulatorPanels[p].revalidate();
+           Sleep(2000);
+        }      
+        }
+        });
+        test.start();
+        
+        
+    
+}//GEN-LAST:event_BtnStartActionPerformed
+
+private void Sleep(long time){
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TrainSimulatorView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
+private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnStopActionPerformed
+        //System.out.println("clicked Stop");
+        
+}//GEN-LAST:event_BtnStopActionPerformed
 
    private void controlAllButtons(boolean b) {
         if(b==false){
@@ -782,6 +1007,7 @@ private void rBtnReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 simulatorPanels[1] = new SimulatorPanel(ConfigurationHeaders.Exit);
                 SimulationPanel.add(simulatorPanels[0]);
                 SimulationPanel.add(simulatorPanels[1]);
+                testSchedulerPanel.setVisible(true);
                 break;
                 case 1:
                 SimulationPanel.setLayout(new java.awt.GridLayout(1, 3));
@@ -791,8 +1017,10 @@ private void rBtnReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 SimulationPanel.add(simulatorPanels[0]);
                 SimulationPanel.add(simulatorPanels[1]);
                 SimulationPanel.add(simulatorPanels[2]);
+                testSchedulerPanel.setVisible(true);
                 break;
                 case 2:
+                case 3:
                 SimulationPanel.setLayout(new java.awt.GridLayout(1, 3));
                 simulatorPanels[0] =new SimulatorPanel(ConfigurationHeaders.Entry);
                 simulatorPanels[1] =new SimulatorPanel(ConfigurationHeaders.MidPoint);
@@ -800,8 +1028,9 @@ private void rBtnReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 SimulationPanel.add(simulatorPanels[0]);
                 SimulationPanel.add(simulatorPanels[1]);
                 SimulationPanel.add(simulatorPanels[2]);
+                testSchedulerPanel.setVisible(true);
                 break;
-                case 3:
+                case 5:
                 SimulationPanel.setLayout(new java.awt.GridLayout(1, 4));
                 simulatorPanels[0] =new SimulatorPanel(ConfigurationHeaders.FwdEntry);
                 simulatorPanels[1] =new SimulatorPanel(ConfigurationHeaders.RvExit);
@@ -811,9 +1040,12 @@ private void rBtnReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
                 SimulationPanel.add(simulatorPanels[1]);
                 SimulationPanel.add(simulatorPanels[2]);
                 SimulationPanel.add(simulatorPanels[3]);
+                testSchedulerPanel.setVisible(false);
                 break;
                 case 4:
+                case 6:
                 SimulationPanel.add(new OtherConfiguration());
+                testSchedulerPanel.setVisible(false);
                 break;
             }
         }
@@ -908,8 +1140,22 @@ private void rBtnReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(Blinker_Task, 0, 300);
         
+         ButtonGroup intervalGroup = new ButtonGroup();
+        intervalGroup.add(fixedrbtn);
+        intervalGroup.add(randomrbtn);
+        
+        ButtonGroup durationGroup = new ButtonGroup();
+        durationGroup.add(rbtn12hr);
+        durationGroup.add(rbtn24hr);
+        durationGroup.add(rbtncustom);  
+        
+        fixedrbtn.setSelected(true);
+        rbtncustom.setSelected(true);
+        
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnStart;
+    private javax.swing.JButton BtnStop;
     public javax.swing.JMenuItem CommSettingMitem;
     private javax.swing.JPanel ConfigPanel;
     private javax.swing.JPanel Counter_fwd;
@@ -919,12 +1165,19 @@ private void rBtnReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JComboBox configCombo;
     public javax.swing.JPanel connection_indicator_panel;
     private javax.swing.JPanel counter_rev;
+    private javax.swing.JTextField durationtxtfield;
+    private javax.swing.JRadioButton fixedrbtn;
+    private javax.swing.JTextField intervaltxtfield;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -932,6 +1185,8 @@ private void rBtnReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
@@ -940,7 +1195,14 @@ private void rBtnReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JRadioButton rBtnForward;
     private javax.swing.JRadioButton rBtnManual;
     private javax.swing.JRadioButton rBtnReverse;
+    private javax.swing.JRadioButton randomrbtn;
+    private javax.swing.JRadioButton rbtn12hr;
+    private javax.swing.JRadioButton rbtn24hr;
+    private javax.swing.JRadioButton rbtncustom;
+    private javax.swing.JTextField schedulercount;
+    private javax.swing.JTextField schedulerspeed;
     private javax.swing.JPanel statusPanel;
+    private javax.swing.JPanel testSchedulerPanel;
     // End of variables declaration//GEN-END:variables
 
    }
