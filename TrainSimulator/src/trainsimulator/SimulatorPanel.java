@@ -181,6 +181,7 @@ public class SimulatorPanel extends javax.swing.JPanel {
         DataFrame df = new DataFrame();
         df.Command = Config;
         df.Payload.speed = Integer.parseInt(TxtSpeed.getText());
+        df.Payload.speed = df.Payload.speed /10; // this is beacuse the speed the firmware expects is only from 1-30. so UI will divide it by 10.
         df.Payload.count = Integer.parseInt(TxtCount.getText());
         df.Payload.configuration = (byte) getConfig();
         df.Payload.start_stop = (byte) StartStop;
