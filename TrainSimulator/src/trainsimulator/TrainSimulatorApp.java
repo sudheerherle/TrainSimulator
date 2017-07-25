@@ -19,6 +19,11 @@ public class TrainSimulatorApp extends SingleFrameApplication {
         if(TSview==null){
             TSview = new TrainSimulatorView(this);
             show(TSview);  
+             Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+                public void run() {
+                    TSview.com_disconnect();
+                }
+                }, "Shutdown-thread"));
             TSview.CommSettingMitem.doClick();
         }
     }
@@ -45,7 +50,7 @@ public class TrainSimulatorApp extends SingleFrameApplication {
     /**
      * Main method launching the application.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) {       
         launch(TrainSimulatorApp.class, args);
     }
 }
