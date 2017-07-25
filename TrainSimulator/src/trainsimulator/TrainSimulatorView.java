@@ -762,6 +762,8 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         trainCounts.setEnabled(b);    
         rBtnForward.setEnabled(b);
         rBtnReverse.setEnabled(b);
+        ConfigPanel.setEnabled(b);
+        intervaltxtfield.setEnabled(b);
      }
     private byte[] getArrayFromPacket(DataFrame df){
         byte[] array_data  = new byte[22];
