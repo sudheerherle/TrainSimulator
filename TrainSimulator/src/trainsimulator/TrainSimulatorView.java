@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 import org.jdesktop.application.SingleFrameApplication;
 import org.jdesktop.application.FrameView;
@@ -781,6 +782,10 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 sh.disconnect();
                 sharedData.connected = false;
                 String[] ports = sh.getSerialPorts();
+                if(ports.length==0){
+                    JOptionPane.showMessageDialog(this.getFrame(), "The Train Simulator hardware was not found. \nIf the hardware is already connected, please try unplugging and replugging again!", "Re-Plug",
+                JOptionPane.WARNING_MESSAGE);
+                }
                 for(int p = 0; p< ports.length;p++){
                 GiveResponse("Connecting to port for the first time. Please wait...", Color.blue);
                 if(sh.connect(ports[p], 9600)){
@@ -796,6 +801,10 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 //                        retval = false;
                     }                    
                 } 
+                }
+                if(sharedData.connected==false){
+                    JOptionPane.showMessageDialog(this.getFrame(), "The Train Simulator hardware was not found. \nIf the hardware is already connected, please try unplugging and replugging again!", "Re-Plug",
+                JOptionPane.WARNING_MESSAGE);
                 }
                 
         } catch (IOException ex) {
@@ -836,6 +845,7 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                retval =  true;
             }
         } catch (IOException ex) {
+            this.com_disconnect();
             GiveResponse("Port was not found or in use...", Color.red);
             retval = false;
             //Logger.getLogger(SimpleSerialPort.class.getName()).log(Level.SEVERE, null, ex);
@@ -864,7 +874,7 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 //            sh.disconnect(); 
 //            return false;
 //        }
-        if(sharedData.dataRecievedFlag == false && sharedData.DF_recieved==null){
+        if(sharedData.dataRecievedFlag == false){
             this.com_disconnect();
             return false;
         }
