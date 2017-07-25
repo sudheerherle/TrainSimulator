@@ -21,10 +21,10 @@
                               <Component id="testSchedulerPanel" max="32767" attributes="1"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="Counter_fwd" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="157" max="32767" attributes="0"/>
+                                  <EmptySpace pref="147" max="32767" attributes="0"/>
                                   <Component id="counter_rev" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="SimulationPanel" alignment="0" pref="750" max="32767" attributes="1"/>
+                              <Component id="SimulationPanel" alignment="0" pref="740" max="32767" attributes="1"/>
                           </Group>
                       </Group>
                   </Group>
@@ -318,7 +318,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                      <Component id="lblStatus" pref="1076" max="32767" attributes="0"/>
+                      <Component id="lblStatus" pref="1066" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="connection_indicator_panel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -572,7 +572,7 @@
                               <Component id="BtnStop" min="-2" pref="74" max="-2" attributes="1"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="137" max="32767" attributes="0"/>
+                      <EmptySpace pref="127" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

@@ -16,27 +16,24 @@ public class TestTask extends TimerTask{
 
     @Override
     public void run() {
-           if(test_count>= (long)Long.valueOf(view.trainCounts.getText())-1){
-                    this.cancel();
-                    view.controlAllButtons(true);
-                    view.BtnStart.setEnabled(true);
-                }else{
-                    view.controlAllButtons(false);
-                    int progress = (int) ((int)(100*test_count)/((long)Long.valueOf(view.trainCounts.getText()) * 4));
-//                    progressBar.setMaximum(0);
-//                    progressBar.setMaximum(100);
-//                    progressBar.setValue(progress);
-                }
-               for(int p=0;p<view.simulatorPanels.length;p++){ 
-               if(view.simulatorPanels[p]== null) break;
-               view.simulatorPanels[p].TxtCount.setText(view.schedulercount.getText());
-               view.simulatorPanels[p].TxtSpeed.setText(view.schedulerspeed.getText());
-               view.simulatorPanels[p].BtnStart.doClick();
-               view.simulatorPanels[p].repaint();
-               view.simulatorPanels[p].revalidate();
-               Sleep(2000);
-            }
-               test_count = test_count + 1;
+           
+       view.controlAllButtons(false);
+       int progress = (int) ((int)(100*test_count)/((long)Long.valueOf(view.trainCounts.getText()) * 4));
+       for(int p=0;p<view.simulatorPanels.length;p++){ 
+       if(view.simulatorPanels[p]== null) break;
+       view.simulatorPanels[p].TxtCount.setText(view.schedulercount.getText());
+       view.simulatorPanels[p].TxtSpeed.setText(view.schedulerspeed.getText());
+       view.simulatorPanels[p].BtnStart.doClick();
+       view.simulatorPanels[p].repaint();
+       Sleep(2000);
+       }
+       test_count = test_count + 1;
+       if(test_count>= (long)Long.valueOf(view.trainCounts.getText())){
+            this.cancel();
+            view.controlAllButtons(true);
+            view.BtnStart.setEnabled(true);
+            return;
+       }
     }
     
     public TestTask(TrainSimulatorView view){

@@ -300,7 +300,7 @@ public class TrainSimulatorView extends FrameView {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addGap(10, 10, 10)
-                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 1076, Short.MAX_VALUE)
+                .addComponent(lblStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 1066, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(connection_indicator_panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -542,7 +542,7 @@ public class TrainSimulatorView extends FrameView {
                         .addComponent(BtnStart)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnStop, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(137, Short.MAX_VALUE))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         testSchedulerPanelLayout.setVerticalGroup(
             testSchedulerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -583,9 +583,9 @@ public class TrainSimulatorView extends FrameView {
                             .addComponent(testSchedulerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(mainPanelLayout.createSequentialGroup()
                                 .addComponent(Counter_fwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
                                 .addComponent(counter_rev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(SimulationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE))))
+                            .addComponent(SimulationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
@@ -751,6 +751,17 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
            progressBar.setIndeterminate(false);
         }
         SimulationPanel.setEnabled(b);
+        configCombo.setEnabled(b);
+        DirectionPanel.setEnabled(b);
+        ModePanel.setEnabled(b);
+        testSchedulerPanel.setEnabled(b);
+        rBtnAutomatic.setEnabled(b);
+        rBtnManual.setEnabled(b);
+        schedulercount.setEnabled(b);
+        schedulerspeed.setEnabled(b);
+        trainCounts.setEnabled(b);    
+        rBtnForward.setEnabled(b);
+        rBtnReverse.setEnabled(b);
      }
     private byte[] getArrayFromPacket(DataFrame df){
         byte[] array_data  = new byte[22];
@@ -887,12 +898,12 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             break;
             case 5:
             GiveResponse("The Simulator cannot execute this command.", Color.RED);
-            sharedData.sound(1500, 250, 1.0);
+            sharedData.sound(1000, 250, 1.0);
             retval = false;
             break;
             case 4:
             GiveResponse("The Simulator has executed the command.", Color.BLUE);
-//            sharedData.sound(3000, 500, 1.0);
+            sharedData.sound(3000, 1000, 1.0);
             retval = true;
             break;           
         }
