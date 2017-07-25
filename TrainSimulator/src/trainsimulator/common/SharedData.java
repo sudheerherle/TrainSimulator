@@ -132,7 +132,7 @@ public class SharedData
     {
     DateFormat df = new SimpleDateFormat("HH:mm:ss");
    // DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-    System.out.println(df.format(startTime_fwd));
+//    System.out.println(df.format(startTime_fwd));
     return df.format(new Date().getTime() - startTime_fwd.getTime() - (330*60*1000));
     }
     
@@ -159,7 +159,7 @@ public class SharedData
     {
     DateFormat df = new SimpleDateFormat("HH:mm:ss");
    // DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
-    System.out.println(df.format(startTime_rev));
+//    System.out.println(df.format(startTime_rev));
     return df.format(new Date().getTime() - startTime_rev.getTime() - (330*60*1000));
     }
     public void setStartTime_rev(Date d){

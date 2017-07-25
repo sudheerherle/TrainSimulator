@@ -26,7 +26,7 @@ import trainsimulator.common.SharedData;
  */
 public class TrainSimulatorView extends FrameView {
 
-    private SimulatorPanel[] simulatorPanels = new SimulatorPanel[4];
+    public SimulatorPanel[] simulatorPanels = new SimulatorPanel[4];
     private SerialHelper sh = new SerialHelper();
     private DataFrame DF_recieved;
     private static byte[] poll_port = new byte[]{0x1,0x0};
@@ -36,7 +36,7 @@ public class TrainSimulatorView extends FrameView {
     Timer timer_fwd = new Timer(); 
     Timer timer_rev = new Timer(); 
     Timer timer_test = new Timer(); 
-    private  TimerTask Test_Task ;
+    private  TestTask Test_Task ;
     
     SharedData sharedData = SharedData.getSingletonObject();
     private boolean time_out = false;
@@ -584,8 +584,7 @@ public class TrainSimulatorView extends FrameView {
                                 .addComponent(Counter_fwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
                                 .addComponent(counter_rev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(SimulationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(SimulationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         mainPanelLayout.setVerticalGroup(
@@ -728,23 +727,22 @@ private void rBtnReverseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void BtnStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnStartActionPerformed
     long interval = Long.valueOf(intervaltxtfield.getText()) * 60 * 1000;
-    timer_test.scheduleAtFixedRate(Test_Task, 0, interval);
+    Test_Task = new TestTask(this);
+    timer_test.scheduleAtFixedRate(Test_Task, 0, interval);    
     BtnStart.setEnabled(false);
 }//GEN-LAST:event_BtnStartActionPerformed
 
-private void Sleep(long time){
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(TrainSimulatorView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-}
+
 private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnStopActionPerformed
-        //System.out.println("clicked Stop");
+        
+    if(Test_Task!=null)
+    Test_Task.cancel();
+    controlAllButtons(true);
+    BtnStart.setEnabled(true);
         
 }//GEN-LAST:event_BtnStopActionPerformed
 
-   private void controlAllButtons(boolean b) {
+   public void controlAllButtons(boolean b) {
         if(b==false){
             progressBar.setIndeterminate(true);
         }
@@ -795,7 +793,7 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                      retval =  true;
                      break;
                     }else{
-                        retval = false;
+//                        retval = false;
                     }                    
                 } 
                 }
@@ -828,7 +826,10 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                sh.getSerialOutputStream().write(data);
                retval =  true;
             }
-            else retval = false;
+            else {
+                   GiveResponse("Could not connect to the hardware", Color.RED);
+                   retval = false;
+               }
             }
             else{
                sh.getSerialOutputStream().write(data);
@@ -853,9 +854,9 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     
         private boolean wait_for_resp(){
         boolean retval = false;
-        //sharedData.time_out = false;
-        //timeout_timer.schedule(new TimerThread(), 3000);
-        while (sharedData.dataRecievedFlag==false){
+        sharedData.time_out = false;
+        timeout_timer.schedule(new TimerThread(), 3000);
+        while (sharedData.dataRecievedFlag==false && sharedData.time_out!=true){
             Thread.yield();
         }
 //        if(sharedData.time_out){
@@ -863,6 +864,10 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 //            sh.disconnect(); 
 //            return false;
 //        }
+        if(sharedData.dataRecievedFlag == false && sharedData.DF_recieved==null){
+            this.com_disconnect();
+            return false;
+        }
         sharedData.dataRecievedFlag = false;
         DF_recieved = sharedData.DF_recieved;
         int cmd = DF_recieved.Command[0] | DF_recieved.Command[1];
@@ -1113,37 +1118,9 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         
         fixedrbtn.setSelected(true);
         
-        Test_Task = new TimerTask() {
-            private int test_count = 0;
-            @Override
-            public void run() {
-                if(test_count>= (long)Long.valueOf(trainCounts.getText())-1){
-                    this.cancel();
-                    controlAllButtons(true);
-                    BtnStart.setEnabled(true);
-                }else{
-                    controlAllButtons(false);
-                    int progress = (int) ((int)(100*test_count)/((long)Long.valueOf(trainCounts.getText()) * 4));
-//                    progressBar.setMaximum(0);
-//                    progressBar.setMaximum(100);
-//                    progressBar.setValue(progress);
-                }
-               for(int p=0;p<simulatorPanels.length;p++){ 
-               if(simulatorPanels[p]== null) break;
-               simulatorPanels[p].TxtCount.setText(schedulercount.getText());
-               simulatorPanels[p].TxtSpeed.setText(schedulerspeed.getText());
-               simulatorPanels[p].BtnStart.doClick();
-               simulatorPanels[p].repaint();
-               simulatorPanels[p].revalidate();
-               Sleep(2000);
-            }
-               test_count = test_count + 1;
-            }
-           
-         };         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnStart;
+    public javax.swing.JButton BtnStart;
     private javax.swing.JButton BtnStop;
     public javax.swing.JMenuItem CommSettingMitem;
     private javax.swing.JPanel ConfigPanel;
@@ -1184,11 +1161,11 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JRadioButton rBtnManual;
     private javax.swing.JRadioButton rBtnReverse;
     private javax.swing.JRadioButton randomrbtn;
-    private javax.swing.JTextField schedulercount;
-    private javax.swing.JTextField schedulerspeed;
+    public javax.swing.JTextField schedulercount;
+    public javax.swing.JTextField schedulerspeed;
     private javax.swing.JPanel statusPanel;
     private javax.swing.JPanel testSchedulerPanel;
-    private javax.swing.JTextField trainCounts;
+    public javax.swing.JTextField trainCounts;
     // End of variables declaration//GEN-END:variables
 
    }
