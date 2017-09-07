@@ -5,9 +5,12 @@
 package trainsimulator;
 
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Timer;
@@ -107,8 +110,10 @@ public class TrainSimulatorView extends FrameView {
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         CommSettingMitem = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         javax.swing.JMenu helpMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem aboutMenuItem = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         statusPanel = new javax.swing.JPanel();
         javax.swing.JSeparator statusPanelSeparator = new javax.swing.JSeparator();
         progressBar = new javax.swing.JProgressBar();
@@ -633,6 +638,15 @@ public class TrainSimulatorView extends FrameView {
         });
         jMenu1.add(CommSettingMitem);
 
+        jMenuItem2.setText(resourceMap.getString("jMenuItem2.text")); // NOI18N
+        jMenuItem2.setName("jMenuItem2"); // NOI18N
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         menuBar.add(jMenu1);
 
         helpMenu.setText(resourceMap.getString("helpMenu.text")); // NOI18N
@@ -647,6 +661,15 @@ public class TrainSimulatorView extends FrameView {
             }
         });
         helpMenu.add(aboutMenuItem);
+
+        jMenuItem1.setText(resourceMap.getString("jMenuItem1.text")); // NOI18N
+        jMenuItem1.setName("jMenuItem1"); // NOI18N
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        helpMenu.add(jMenuItem1);
 
         menuBar.add(helpMenu);
 
@@ -743,6 +766,41 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         
 }//GEN-LAST:event_BtnStopActionPerformed
 
+private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    
+        String readme= null;    
+    try {
+            readme = new File(TrainSimulatorView.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath();
+        } catch (URISyntaxException ex) {
+            Logger.getLogger(TrainSimulatorView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    if (Desktop.isDesktopSupported()) {
+    try {
+        if (Desktop.getDesktop().isSupported(Desktop.Action.EDIT)) {
+            File file = new File(readme+"/Readme.txt");
+            if(!file.isFile()){
+                JOptionPane.showMessageDialog(TrainSimulatorApp.getApplication().getView().getFrame(), "Failed to open the readme file.","Error",  JOptionPane.ERROR_MESSAGE);
+            }
+            else Desktop.getDesktop().edit(file);
+        }
+//        // or...
+//        if (Desktop.getDesktop().isSupported(Desktop.Action.OPEN)) {
+//            Desktop.getDesktop().open(new File(readme+"/Readme.txt"));
+//        }
+    } catch (IOException exp) {
+        exp.printStackTrace();
+    }
+}
+    
+}//GEN-LAST:event_jMenuItem1ActionPerformed
+
+private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    TestExecute te = new TestExecute();
+    te.setLocationRelativeTo(this.getFrame());
+    te.setVisible(true);
+}//GEN-LAST:event_jMenuItem2ActionPerformed
+
    public void controlAllButtons(boolean b) {
         if(b==false){
             progressBar.setIndeterminate(true);
@@ -795,10 +853,10 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 sh.disconnect();
                 sharedData.connected = false;
                 String[] ports = sh.getSerialPorts();
-                if(ports.length==0){
-                    JOptionPane.showMessageDialog(this.getFrame(), "The Train Simulator hardware was not found. \nIf the hardware is already connected, please try unplugging and replugging again!", "Re-Plug",
-                JOptionPane.WARNING_MESSAGE);
-                }
+//                if(ports.length==0){
+//                    JOptionPane.showMessageDialog(this.getFrame(), "The Train Simulator hardware was not found. \nIf the hardware is already connected, please try unplugging and replugging again!", "Re-Plug",
+//                JOptionPane.WARNING_MESSAGE);
+//                }
                 for(int p = 0; p< ports.length;p++){
                 GiveResponse("Connecting to port for the first time. Please wait...", Color.blue);
                 if(sh.connect(ports[p], 9600)){
@@ -877,8 +935,9 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     
         private boolean wait_for_resp(){
         boolean retval = false;
+        TimerThread th = new TimerThread();
         sharedData.time_out = false;
-        timeout_timer.schedule(new TimerThread(), 3000);
+        timeout_timer.schedule(th, 3000);
         while (sharedData.dataRecievedFlag==false && sharedData.time_out!=true){
             Thread.yield();
         }
@@ -891,6 +950,7 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             this.com_disconnect();
             return false;
         }
+        th.cancel();
         sharedData.dataRecievedFlag = false;
         DF_recieved = sharedData.DF_recieved;
         int cmd = DF_recieved.Command[0] | DF_recieved.Command[1];
@@ -911,7 +971,7 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
         }
         return retval;
     }
-    private int getAutoManual(){
+    public int getAutoManual(){
         int retVal = 1;
         if(rBtnAutomatic.isSelected()){
             retVal =1;
@@ -933,7 +993,6 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     public boolean SendPacketRecieveResponse(DataFrame df){
         boolean retval  = false;
         DataFrame sending_packet = df;
-        sending_packet.Payload.auto_manual = (byte) getAutoManual();
         sending_packet.Payload.fwd_reverse = (byte) getFwdReverse();        
         retval = SendData(df);
         return retval; 
@@ -1037,6 +1096,17 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
                 testSchedulerPanel.setVisible(false);
                 break;
                 case 4:
+                SimulationPanel.setLayout(new java.awt.GridLayout(1, 4));
+                simulatorPanels[0] =new SimulatorPanel(ConfigurationHeaders.SSDAC_A);
+                simulatorPanels[1] =new SimulatorPanel(ConfigurationHeaders.SSDAC_B);
+                simulatorPanels[2] = new SimulatorPanel(ConfigurationHeaders.SSDAC_C);
+                simulatorPanels[3] = new SimulatorPanel(ConfigurationHeaders.SSDAC_D);
+                SimulationPanel.add(simulatorPanels[0]);
+                SimulationPanel.add(simulatorPanels[1]);
+                SimulationPanel.add(simulatorPanels[2]);
+                SimulationPanel.add(simulatorPanels[3]);
+                testSchedulerPanel.setVisible(false);
+                break;
                 case 6:
                 SimulationPanel.add(new OtherConfiguration());
                 testSchedulerPanel.setVisible(false);
@@ -1171,6 +1241,8 @@ private void BtnStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel6;

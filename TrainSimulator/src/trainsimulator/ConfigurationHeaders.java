@@ -21,5 +21,6 @@ public class ConfigurationHeaders {
     static String SSDAC_A = "SSDAC A";
     static String SSDAC_B = "SSDAC B";
     static String SSDAC_C = "SSDAC C";
+    static String SSDAC_D = "SSDAC D";
 
 }

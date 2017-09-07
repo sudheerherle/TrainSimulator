@@ -50,7 +50,7 @@ public class TestTask extends TimerTask{
        view.simulatorPanels[p].TxtSpeed.setText(view.schedulerspeed.getText());
        view.simulatorPanels[p].BtnStart.doClick();
        view.simulatorPanels[p].repaint();
-       Sleep(2000);
+       Sleep(20000);
        }
        test_count = test_count + 1;
        if(test_count>= (long)Long.valueOf(view.trainCounts.getText())){

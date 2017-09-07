@@ -185,6 +185,7 @@ public class SimulatorPanel extends javax.swing.JPanel {
         df.Payload.count = Integer.parseInt(TxtCount.getText());
         df.Payload.configuration = (byte) getConfig();
         df.Payload.start_stop = (byte) StartStop;
+        df.Payload.auto_manual = (byte) TrainSimulatorApp.getApplication().getView().getAutoManual();
         CurrentFrame = df;
         Thread te = new Thread(new Runnable() {
         public void run()
