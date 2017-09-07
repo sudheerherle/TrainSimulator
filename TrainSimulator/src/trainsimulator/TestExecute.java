@@ -125,6 +125,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     Thread te = new Thread(new Runnable() {
     public void run()
     {
+        jButton1.setEnabled(false);
         int rows = jTable1.getRowCount();
         TestCase tc = new TestCase();
         jLabel2.setForeground(Color.BLUE);
@@ -163,6 +164,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
               
         }
         jLabel2.setText("Test complete"); 
+        jButton1.setEnabled(true);
     }
     });
     te.start();
