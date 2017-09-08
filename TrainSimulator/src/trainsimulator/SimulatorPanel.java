@@ -225,7 +225,8 @@ public class SimulatorPanel extends javax.swing.JPanel {
         }
         else if(this.headerOfPanel.equals(ConfigurationHeaders.Exit)
                 || this.headerOfPanel.equals(ConfigurationHeaders.RvExit)
-                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_C)){
+                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_C)
+                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_D)){
             conf = 2;
         }
         else if(this.headerOfPanel.equals(ConfigurationHeaders.MidPoint)
