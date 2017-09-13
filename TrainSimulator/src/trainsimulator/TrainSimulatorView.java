@@ -216,7 +216,7 @@ public class TrainSimulatorView extends FrameView {
         ConfigPanel.setName("ConfigPanel"); // NOI18N
 
         configCombo.setFont(resourceMap.getFont("configCombo.font")); // NOI18N
-        configCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2D1S", "3D1S", "3D2S", "3D3S", "4D1S", "LCWS", "Others" }));
+        configCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DE", "2D1S", "3D1S", "3D2S", "3D3S", "4D1S", "TWS" }));
         configCombo.setName("configCombo"); // NOI18N
         configCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -720,6 +720,7 @@ public class TrainSimulatorView extends FrameView {
         if(rBtnManual.isSelected()){
             configCombo.setEnabled(false);
             sharedData.AutoManual=2;
+            testSchedulerPanel.setVisible(false);
         }
         updatePanels();
     }//GEN-LAST:event_rBtnManualActionPerformed
@@ -1054,7 +1055,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             Counter_fwd.setVisible(false);
             counter_rev.setVisible(false);
             switch (index){
-                case 0:
+                case 1:
                 SimulationPanel.setLayout(new java.awt.GridLayout(1, 2));
                 simulatorPanels[0] =new SimulatorPanel(ConfigurationHeaders.Entry);
                 simulatorPanels[1] = new SimulatorPanel(ConfigurationHeaders.Exit);
@@ -1062,7 +1063,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 SimulationPanel.add(simulatorPanels[1]);
                 testSchedulerPanel.setVisible(true);
                 break;
-                case 1:
+                case 2:
                 SimulationPanel.setLayout(new java.awt.GridLayout(1, 3));
                 simulatorPanels[0] =new SimulatorPanel(ConfigurationHeaders.SSDAC_A);
                 simulatorPanels[1] =new SimulatorPanel(ConfigurationHeaders.SSDAC_B);
@@ -1072,8 +1073,8 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 SimulationPanel.add(simulatorPanels[2]);
                 testSchedulerPanel.setVisible(true);
                 break;
-                case 2:
                 case 3:
+                case 4:
                 SimulationPanel.setLayout(new java.awt.GridLayout(1, 3));
                 simulatorPanels[0] =new SimulatorPanel(ConfigurationHeaders.Entry);
                 simulatorPanels[1] =new SimulatorPanel(ConfigurationHeaders.MidPoint);
@@ -1083,7 +1084,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 SimulationPanel.add(simulatorPanels[2]);
                 testSchedulerPanel.setVisible(true);
                 break;
-                case 5:
+                case 6:
                 SimulationPanel.setLayout(new java.awt.GridLayout(1, 4));
                 simulatorPanels[0] =new SimulatorPanel(ConfigurationHeaders.FwdEntry);
                 simulatorPanels[1] =new SimulatorPanel(ConfigurationHeaders.RvExit);
@@ -1095,7 +1096,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 SimulationPanel.add(simulatorPanels[3]);
                 testSchedulerPanel.setVisible(false);
                 break;
-                case 4:
+                case 5:
                 SimulationPanel.setLayout(new java.awt.GridLayout(1, 4));
                 simulatorPanels[0] =new SimulatorPanel(ConfigurationHeaders.SSDAC_A);
                 simulatorPanels[1] =new SimulatorPanel(ConfigurationHeaders.SSDAC_B);
@@ -1105,12 +1106,18 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 SimulationPanel.add(simulatorPanels[1]);
                 SimulationPanel.add(simulatorPanels[2]);
                 SimulationPanel.add(simulatorPanels[3]);
-                testSchedulerPanel.setVisible(false);
+                testSchedulerPanel.setVisible(true);
                 break;
-                case 6:
-                SimulationPanel.add(new OtherConfiguration());
-                testSchedulerPanel.setVisible(false);
+                case 0:
+                SimulationPanel.setLayout(new java.awt.GridLayout(1, 1));
+                simulatorPanels[0] =new SimulatorPanel(ConfigurationHeaders.Entry);
+                SimulationPanel.add(simulatorPanels[0]);
+                testSchedulerPanel.setVisible(false);  
                 break;
+//                case 7:
+//                SimulationPanel.add(new OtherConfiguration());
+//                testSchedulerPanel.setVisible(false);
+//                break;
             }
         }
             SimulationPanel.repaint();

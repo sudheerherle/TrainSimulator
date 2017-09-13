@@ -264,6 +264,7 @@ public class ManualSimulator extends javax.swing.JPanel {
         df.Command = Config;
         df.Payload.speed = getEntrySwitchState();
         df.Payload.configuration = (byte) 0x1;
+        df.Payload.auto_manual = (byte) 0x2;
         CurrentFrame = df;
         Thread te = new Thread(new Runnable() {
         public void run()
@@ -284,6 +285,7 @@ public class ManualSimulator extends javax.swing.JPanel {
         df.Command = Config;
         df.Payload.speed = getExitSwitchState();
         df.Payload.configuration = (byte) 0x2;
+        df.Payload.auto_manual = (byte) 0x2;
         CurrentFrame = df;
         Thread te = new Thread(new Runnable() {
         public void run()

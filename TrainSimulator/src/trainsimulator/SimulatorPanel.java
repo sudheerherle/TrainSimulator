@@ -226,7 +226,7 @@ public class SimulatorPanel extends javax.swing.JPanel {
         else if(this.headerOfPanel.equals(ConfigurationHeaders.Exit)
                 || this.headerOfPanel.equals(ConfigurationHeaders.RvExit)
                 || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_C)
-                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_D)){
+                ){
             conf = 2;
         }
         else if(this.headerOfPanel.equals(ConfigurationHeaders.MidPoint)
@@ -234,7 +234,8 @@ public class SimulatorPanel extends javax.swing.JPanel {
                 || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_B)){
             conf = 3;
         }
-        else if(this.headerOfPanel.equals(ConfigurationHeaders.RvEntry)){
+        else if(this.headerOfPanel.equals(ConfigurationHeaders.RvEntry)
+                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_D)){
             conf = 4;
         }        
         return conf;

@@ -13,6 +13,7 @@ package trainsimulator;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Timer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,10 +69,10 @@ private CTableHandler tabHandle;
                 {"1", "test case number 1", "", null, "Apply Reset", null, null},
                 {null, null, "2", null, "A_B_A-B-", "1000", null},
                 {null, null, "2", null, "B_A_B-A-", "1000", null},
-                {null, null, "1", null, "B_A_B-A-", "1000", null},
-                {null, null, "1", null, "D_C_D-C-", "1000", null},
+                {null, null, "1", null, "A_B_A-B-", "1000", null},
+                {null, null, "1", null, "C_D_C-D-", "1000", null},
                 {null, null, "2", null, "A_B_A-B-", "1000", null},
-                {null, null, "2", null, "D_C_D-C-", "1000", null}
+                {null, null, "2", null, "C_D_C-D-", "1000", null}
             },
             new String [] {
                 "Case Number", "Case Name", "Counts", "Speed", "Input", "Delay", "Remarks"
@@ -237,30 +238,66 @@ private boolean LoadTable(File file){
 }
 public boolean TestCaseTask(TestCase tc){
     boolean retval = false;
-    String speed = "";
-    for(int s=0; s<tc.input.length(); s++){
-            df = new DataFrame();
-            df.Command = new byte[]{0x3,0x0};
-            df.Payload.auto_manual = 2;
+    byte[] speed_result = new byte[4];
+    String speed= "",speed1 = "",speed2 = "";
+    df = new DataFrame();
+    df.Command = new byte[]{0x3,0x0};
+    df.Payload.auto_manual = 2;
+    for(int d=0; d<tc.counts;d++){
+    for(int s=0; s<tc.input.length(); s=s+2){               
             if(s%2==0){
-               if(tc.input.contains("a") || tc.input.contains("A")){
-                    df.Payload.configuration = (byte)0x1;
-                }else if(tc.input.contains("c") || tc.input.contains("C")){
-                    df.Payload.configuration = (byte)0x1;
-                }
-               s++;
-               if(tc.input.charAt(s) == '_'){
-                    speed = "1";
-                }else{
-                    speed = "0";
-                }
-            }             
-            
-            df.Payload.speed = Integer.parseInt(speed, 10);
+               if(tc.input.contains("a") || tc.input.contains("A")
+                       ||tc.input.contains("b") || tc.input.contains("B")){
+                   if(df.Payload.configuration != (byte)0x1){
+                       df = getNewFrame((byte)1);
+                   }
+               }else if(tc.input.contains("c") || tc.input.contains("C")
+                       || tc.input.contains("d") || tc.input.contains("D")){
+                   if(df.Payload.configuration != (byte)0x2){
+                       df = getNewFrame((byte)2);
+                   }
+               }
+               ByteBuffer b = ByteBuffer.allocate(4);
+                //b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
+               b.putInt(df.Payload.speed);
+
+               speed_result = b.array();
+               if(tc.input.charAt(s) == 'a' || tc.input.charAt(s) == 'A'){
+                  speed_result[3] = getSpeed(tc,s);
+               }
+               if(tc.input.charAt(s) == 'b' || tc.input.charAt(s) == 'B'){
+                  speed_result[2] = getSpeed(tc,s);
+               }
+               if(tc.input.charAt(s) == 'c' || tc.input.charAt(s) == 'C'){
+                  speed_result[3] = getSpeed(tc,s);
+               }
+               if(tc.input.charAt(s) == 'd' || tc.input.charAt(s) == 'D'){
+                  speed_result[2] = getSpeed(tc,s);
+               }                
+            }           
+            df.Payload.speed = ByteBuffer.wrap(speed_result).getInt();
             retval =  TrainSimulatorApp.getApplication().getView().SendPacketRecieveResponse(df);
             if(!retval) break;
         }
+    }
     return retval;
+}
+ 
+private DataFrame getNewFrame(byte b){
+    DataFrame d = new DataFrame();
+    d.Command = new byte[]{0x3,0x0};
+    d.Payload.auto_manual = 2;
+    d.Payload.configuration = b;
+    return d;
+}
+private byte getSpeed(TestCase tx, int s){
+    byte speed = 0x0;        
+    if(tx.input.charAt(s+1) == '_'){
+    speed = 0x1;
+    }else{
+        speed = 0x0;
+    }
+    return speed;
 }
     /**
      * @param args the command line arguments

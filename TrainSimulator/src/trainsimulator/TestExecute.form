@@ -116,10 +116,10 @@
                   <Data value="Apply Reset"/>
                   <Data value="A_B_A-B-"/>
                   <Data value="B_A_B-A-"/>
-                  <Data value="B_A_B-A-"/>
-                  <Data value="D_C_D-C-"/>
                   <Data value="A_B_A-B-"/>
-                  <Data value="D_C_D-C-"/>
+                  <Data value="C_D_C-D-"/>
+                  <Data value="A_B_A-B-"/>
+                  <Data value="C_D_C-D-"/>
                 </Column>
                 <Column editable="true" title="Delay" type="java.lang.Object">
                   <Data value="null"/>

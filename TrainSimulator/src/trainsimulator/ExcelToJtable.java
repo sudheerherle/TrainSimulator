@@ -12,8 +12,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Iterator;
 
+import java.util.List;
+import java.util.Vector;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -23,6 +26,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTCell;
+import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTRow;
 
 
 
@@ -98,8 +103,9 @@ public static void readXLSFile() throws IOException
 		fileOut.close();
 	}
 	
-	public static void readXLSXFile() throws IOException
+	public static List<Vector> readXLSXFile() throws IOException
 	{
+                List<Vector> list = new ArrayList<Vector>();                
 		InputStream ExcelFileToRead = new FileInputStream("D:/Extra/ssdac/train_simulator/test cases.xlsx");
 		XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
 		
@@ -114,6 +120,7 @@ public static void readXLSFile() throws IOException
 		while (rows.hasNext())
 		{
 			row=(XSSFRow) rows.next();
+                        Vector v = new Vector();
 			Iterator cells = row.cellIterator();
 			while (cells.hasNext())
 			{
@@ -121,19 +128,24 @@ public static void readXLSFile() throws IOException
 		
 				if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING)
 				{
-					System.out.print(cell.getStringCellValue()+" ");
+//					System.out.print(cell.getStringCellValue()+" ");
+                                        v.add(cell.getStringCellValue()+" ");
 				}
 				else if(cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC)
 				{
-					System.out.print(cell.getNumericCellValue()+" ");
+//					System.out.print(cell.getNumericCellValue()+" ");
+                                        v.add(cell.getNumericCellValue()+" ");
 				}
 				else
 				{
+                                     v.add("");
 					//U Can Handel Boolean, Formula, Errors
 				}
 			}
-			System.out.println();
+//			System.out.println();
+                        list.add(v);
 		}
+                return list;
 	
 	}
 	
