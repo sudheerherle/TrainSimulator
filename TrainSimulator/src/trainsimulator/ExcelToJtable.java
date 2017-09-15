@@ -17,6 +17,8 @@ import java.util.Iterator;
 
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -33,8 +35,38 @@ import org.openxmlformats.schemas.spreadsheetml.x2006.main.CTRow;
 
 
 public class ExcelToJtable {
+
+    String filePath  =  "";
+    public ExcelToJtable(String file) {
+        this.filePath = file;        
+    }   
+public List getSheetNames(){
+    List list = new ArrayList();
+        try {
+            InputStream ExcelFileToRead = new FileInputStream(filePath);
+            XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
+            for(int p = 0; p < wb.getNumberOfSheets();p++){
+                list.add(wb.getSheetName(p));
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ExcelToJtable.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+     return list;
+}  
+
+public int getSheetIndex(String Name){
+    int index = 0;
+    try {
+            InputStream ExcelFileToRead = new FileInputStream(filePath);
+            XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
+            index = wb.getSheetIndex(Name);
+        } catch (IOException ex) {
+            Logger.getLogger(ExcelToJtable.class.getName()).log(Level.SEVERE, null, ex);
+        }  
     
-public static void readXLSFile() throws IOException
+    return index;
+}
+public void readXLSFile() throws IOException
 	{
 		InputStream ExcelFileToRead = new FileInputStream("C:/Test.xls");
 		HSSFWorkbook wb = new HSSFWorkbook(ExcelFileToRead);
@@ -72,7 +104,7 @@ public static void readXLSFile() throws IOException
 	
 	}
 	
-	public static void writeXLSFile() throws IOException {
+	public void writeXLSFile() throws IOException {
 		
 		String excelFileName = "C:/Test.xls";//name of excel file
 
@@ -103,15 +135,15 @@ public static void readXLSFile() throws IOException
 		fileOut.close();
 	}
 	
-	public static List<Vector> readXLSXFile() throws IOException
+	public List<String[]> readXLSXFile(int sheetnumber) throws IOException
 	{
-                List<Vector> list = new ArrayList<Vector>();                
-		InputStream ExcelFileToRead = new FileInputStream("D:/Extra/ssdac/train_simulator/test cases.xlsx");
+                List<String[]> list = new ArrayList<String[]>();                
+		InputStream ExcelFileToRead = new FileInputStream(this.filePath);
 		XSSFWorkbook  wb = new XSSFWorkbook(ExcelFileToRead);
 		
 		XSSFWorkbook test = new XSSFWorkbook(); 
 		
-		XSSFSheet sheet = wb.getSheetAt(0);
+		XSSFSheet sheet = wb.getSheetAt(sheetnumber);
 		XSSFRow row; 
 		XSSFCell cell;
 
@@ -120,25 +152,29 @@ public static void readXLSFile() throws IOException
 		while (rows.hasNext())
 		{
 			row=(XSSFRow) rows.next();
-                        Vector v = new Vector();
+                        String[] v = new String[6];                        
 			Iterator cells = row.cellIterator();
-			while (cells.hasNext())
+			while(cells.hasNext())
 			{
 				cell=(XSSFCell) cells.next();
-		
+                                int p = cell.getColumnIndex();
 				if (cell.getCellType() == XSSFCell.CELL_TYPE_STRING)
 				{
 //					System.out.print(cell.getStringCellValue()+" ");
-                                        v.add(cell.getStringCellValue()+" ");
+//                                        v.add(p,cell.getStringCellValue()+" ");
+                                        v[p] = cell.getStringCellValue()+" ";
 				}
 				else if(cell.getCellType() == XSSFCell.CELL_TYPE_NUMERIC)
 				{
 //					System.out.print(cell.getNumericCellValue()+" ");
-                                        v.add(cell.getNumericCellValue()+" ");
+//                                        v.add(p,cell.getNumericCellValue()+" ");
+                                    double temp = cell.getNumericCellValue();
+                                    v[p] = Integer.toString((int)temp);
 				}
 				else
 				{
-                                     v.add("");
+//                                     v.add(p,"");
+                                     v[p] = "";
 					//U Can Handel Boolean, Formula, Errors
 				}
 			}
@@ -149,7 +185,7 @@ public static void readXLSFile() throws IOException
 	
 	}
 	
-	public static void writeXLSXFile() throws IOException {
+	public void writeXLSXFile() throws IOException {
 		
 		String excelFileName = "C:/Test.xlsx";//name of excel file
 

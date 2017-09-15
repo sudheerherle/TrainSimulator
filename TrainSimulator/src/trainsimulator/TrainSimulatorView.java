@@ -875,7 +875,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 } 
                 }
                 if(sharedData.connected==false){
-                    JOptionPane.showMessageDialog(this.getFrame(), "The Train Simulator hardware was not found. \nIf the hardware is already connected, please try unplugging and replugging again!", "Re-Plug",
+                    JOptionPane.showMessageDialog(null, "The Train Simulator hardware was not found. \nIf the hardware is already connected, please try unplugging and replugging again!", "Re-Plug",
                 JOptionPane.WARNING_MESSAGE);
                 }
                 
