@@ -850,7 +850,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     }
     public boolean com_connect(){
         boolean retval = false;
-        try {
+//        try {
                 sh.disconnect();
                 sharedData.connected = false;
                 String[] ports = sh.getSerialPorts();
@@ -860,6 +860,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 //                }
                 for(int p = 0; p< ports.length;p++){
                 GiveResponse("Connecting to port for the first time. Please wait...", Color.blue);
+                try{
                 if(sh.connect(ports[p], 9600)){
                     DataFrame df = new DataFrame();
                     df.Command = poll_port;
@@ -873,17 +874,20 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 //                        retval = false;
                     }                    
                 } 
+                }catch(IOException ex){
+                    
+                }
                 }
                 if(sharedData.connected==false){
                     JOptionPane.showMessageDialog(null, "The Train Simulator hardware was not found. \nIf the hardware is already connected, please try unplugging and replugging again!", "Re-Plug",
                 JOptionPane.WARNING_MESSAGE);
                 }
                 
-        } catch (IOException ex) {
-            retval = false;
-            sharedData.connected = false;
-            GiveResponse("Port was not found or in use...", Color.red);
-        }
+//        } catch (IOException ex) {
+//            retval = false;
+//            sharedData.connected = false;
+//            GiveResponse("Port was not found or in use...", Color.red);
+//        }
         return retval;
     }
     
