@@ -225,13 +225,13 @@ public class SimulatorPanel extends javax.swing.JPanel {
         }
         else if(this.headerOfPanel.equals(ConfigurationHeaders.Exit)
                 || this.headerOfPanel.equals(ConfigurationHeaders.RvExit)
-                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_C)
+                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_B)
                 ){
             conf = 2;
         }
         else if(this.headerOfPanel.equals(ConfigurationHeaders.MidPoint)
                 || this.headerOfPanel.equals(ConfigurationHeaders.FwdExit)
-                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_B)){
+                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_C)){
             conf = 3;
         }
         else if(this.headerOfPanel.equals(ConfigurationHeaders.RvEntry)
