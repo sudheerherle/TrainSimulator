@@ -76,6 +76,7 @@ public class TrainSimulatorView extends FrameView {
         ConfigPanel = new javax.swing.JPanel();
         configCombo = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        BtnPilotTrain = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
@@ -105,6 +106,13 @@ public class TrainSimulatorView extends FrameView {
         trainCounts = new javax.swing.JTextField();
         BtnStart = new javax.swing.JButton();
         BtnStop = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -246,17 +254,26 @@ public class TrainSimulatorView extends FrameView {
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
+        BtnPilotTrain.setText(resourceMap.getString("BtnPilotTrain.text")); // NOI18N
+        BtnPilotTrain.setName("BtnPilotTrain"); // NOI18N
+        BtnPilotTrain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPilotTrainActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ConfigPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
-                    .addComponent(ModePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(DirectionPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                    .addComponent(BtnPilotTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                    .addComponent(ConfigPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ModePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DirectionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -268,9 +285,11 @@ public class TrainSimulatorView extends FrameView {
                 .addComponent(DirectionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ModePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BtnPilotTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel1)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
@@ -573,6 +592,64 @@ public class TrainSimulatorView extends FrameView {
                             .addComponent(BtnStart)))))
         );
 
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel3.border.title"))); // NOI18N
+        jPanel3.setName("jPanel3"); // NOI18N
+
+        jLabel12.setText(resourceMap.getString("jLabel12.text")); // NOI18N
+        jLabel12.setName("jLabel12"); // NOI18N
+
+        jTextField1.setText(resourceMap.getString("jTextField1.text")); // NOI18N
+        jTextField1.setName("jTextField1"); // NOI18N
+
+        jLabel14.setText(resourceMap.getString("jLabel14.text")); // NOI18N
+        jLabel14.setName("jLabel14"); // NOI18N
+
+        jTextField2.setText(resourceMap.getString("jTextField2.text")); // NOI18N
+        jTextField2.setName("jTextField2"); // NOI18N
+
+        jLabel15.setText(resourceMap.getString("jLabel15.text")); // NOI18N
+        jLabel15.setName("jLabel15"); // NOI18N
+
+        jLabel16.setText(resourceMap.getString("jLabel16.text")); // NOI18N
+        jLabel16.setName("jLabel16"); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel14)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel16))
+                .addContainerGap(491, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addContainerGap(36, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
         mainPanelLayout.setHorizontalGroup(
@@ -585,6 +662,7 @@ public class TrainSimulatorView extends FrameView {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(testSchedulerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(mainPanelLayout.createSequentialGroup()
                                 .addComponent(Counter_fwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -605,9 +683,11 @@ public class TrainSimulatorView extends FrameView {
                             .addComponent(Counter_fwd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(counter_rev, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(testSchedulerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(testSchedulerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 195, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 143, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -802,6 +882,71 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     te.setVisible(true);
 }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+private void BtnPilotTrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPilotTrainActionPerformed
+    
+    Thread te = new Thread(new Runnable() {
+
+        public void run()
+        {
+          rBtnForward.setSelected(true);
+          controlAllButtons(false);
+          
+          int count = 2;
+//          if(rBtnForward.isSelected()){
+          for(int p=0;p<simulatorPanels.length;p++){
+            SimulatorPanel panel = simulatorPanels[p];
+            if(panel==null) break;
+            SpeedCount sc = new SpeedCount(panel.TxtSpeed.getText(),panel.TxtCount.getText());
+            if(configCombo.getSelectedItem().toString().equals("3D1S")
+                    && panel.headerOfPanel.contains("SSDAC A")){
+                count = 4;
+            }else if(configCombo.getSelectedItem().toString().equals("4D1S")
+                    && panel.headerOfPanel.contains("SSDAC A")){
+                count = 6; 
+            }else{
+                count =2;
+            }
+            panel.StartCount(250,count);   
+                try {
+                    Thread.sleep(1500);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(TrainSimulatorView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            panel.setSpeedCount(sc.speed,sc.count);
+          
+            }
+//          }
+//          else{
+//          for(int p=3;p>=0;p--){
+//            SimulatorPanel panel = simulatorPanels[p];
+//            while(panel==null){
+//                p--;
+//                panel = simulatorPanels[p];
+//            }
+//            SpeedCount sc = new SpeedCount(panel.TxtSpeed.getText(),panel.TxtCount.getText());
+//            panel.StartCount(250,2);   
+//                try {
+//                    Thread.sleep(1500);
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(TrainSimulatorView.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            panel.setSpeedCount(sc.speed,sc.count);
+//          }
+//     }
+          controlAllButtons(true);
+        }
+        });
+        te.start();
+    
+}//GEN-LAST:event_BtnPilotTrainActionPerformed
+
+private class SpeedCount{
+    String speed, count;
+    SpeedCount(String speed, String count){
+        this.speed = speed;
+        this.count = count;
+    }
+}
    public void controlAllButtons(boolean b) {
         if(b==false){
             progressBar.setIndeterminate(true);
@@ -943,14 +1088,14 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         TimerThread th = new TimerThread();
         sharedData.time_out = false;
         timeout_timer.schedule(th, 3000);
-        while (sharedData.dataRecievedFlag==false && sharedData.time_out!=true){
+        while (sharedData.dataRecievedFlag==false && sharedData.time_out==false){
             Thread.yield();
         }
-//        if(sharedData.time_out){
-//            sharedData.time_out = false;
-//            sh.disconnect(); 
-//            return false;
-//        }
+        if(sharedData.time_out){
+            sharedData.time_out = false;
+            sh.disconnect(); 
+            return false;
+        }
         if(sharedData.dataRecievedFlag == false){
             this.com_disconnect();
             return false;
@@ -1048,6 +1193,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         lblStatus.setForeground(Color.BLACK);
     }    
     private void updatePanels(){
+        simulatorPanels = new SimulatorPanel[4];
         if(rBtnManual.isSelected()){
             SimulationPanel.removeAll();
             SimulationPanel.add(new ManualSimulator());
@@ -1062,7 +1208,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 case 1:
                 SimulationPanel.setLayout(new java.awt.GridLayout(1, 2));
                 simulatorPanels[0] =new SimulatorPanel(ConfigurationHeaders.Entry);
-                simulatorPanels[1] = new SimulatorPanel(ConfigurationHeaders.Exit);
+                simulatorPanels[1] = new SimulatorPanel(ConfigurationHeaders.SSDAC_2D1S_Exit);
                 SimulationPanel.add(simulatorPanels[0]);
                 SimulationPanel.add(simulatorPanels[1]);
                 testSchedulerPanel.setVisible(true);
@@ -1082,7 +1228,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
                 SimulationPanel.setLayout(new java.awt.GridLayout(1, 3));
                 simulatorPanels[0] =new SimulatorPanel(ConfigurationHeaders.Entry);
                 simulatorPanels[1] =new SimulatorPanel(ConfigurationHeaders.MidPoint);
-                simulatorPanels[2] = new SimulatorPanel(ConfigurationHeaders.Exit);
+                simulatorPanels[2] = new SimulatorPanel(ConfigurationHeaders.SSDAC_3D3S_Exit);
                 SimulationPanel.add(simulatorPanels[0]);
                 SimulationPanel.add(simulatorPanels[1]);
                 SimulationPanel.add(simulatorPanels[2]);
@@ -1224,6 +1370,7 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
         
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnPilotTrain;
     public javax.swing.JButton BtnStart;
     private javax.swing.JButton BtnStop;
     public javax.swing.JMenuItem CommSettingMitem;
@@ -1240,7 +1387,11 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1256,14 +1407,17 @@ private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JRadioButton rBtnAutomatic;
-    private javax.swing.JRadioButton rBtnForward;
+    public javax.swing.JRadioButton rBtnForward;
     private javax.swing.JRadioButton rBtnManual;
     private javax.swing.JRadioButton rBtnReverse;
     private javax.swing.JRadioButton randomrbtn;

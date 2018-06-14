@@ -27,14 +27,16 @@ public class SimulatorPanel extends javax.swing.JPanel {
     private SerialHelper sh = new SerialHelper();
     SharedData shareddata = SharedData.getSingletonObject();
     boolean dataRecievedFlag = false;
-    private String headerOfPanel;
+    public String headerOfPanel;
+    private ConfigurationHeaders header;
     DataFrame CurrentFrame;
     
     /** Creates new form SimulatorPanel */
-    public SimulatorPanel(String header) {
+    public SimulatorPanel(ConfigurationHeaders header) {
         initComponents();
-        entryType.setText(header);
-        this.headerOfPanel = header;
+        this.header = header;
+        entryType.setText(header.getString());
+        this.headerOfPanel = header.getString();
     }
 
     /** This method is called from within the constructor to
@@ -218,24 +220,27 @@ public class SimulatorPanel extends javax.swing.JPanel {
 
     private int getConfig(){
         int conf = 0;
-        if(this.headerOfPanel.equals(ConfigurationHeaders.FwdEntry)
-                || this.headerOfPanel.equals(ConfigurationHeaders.Entry)
-                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_A)){
+        if(this.header.equals(ConfigurationHeaders.FwdEntry)
+                || this.header.equals(ConfigurationHeaders.Entry)
+                || this.header.equals(ConfigurationHeaders.SSDAC_A)){
             conf = 1;
         }
-        else if(this.headerOfPanel.equals(ConfigurationHeaders.Exit)
-                || this.headerOfPanel.equals(ConfigurationHeaders.RvExit)
-                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_B)
+        else if(this.header.equals(ConfigurationHeaders.SSDAC_2D1S_Exit)
+                || this.header.equals(ConfigurationHeaders.RvExit)
+                || this.header.equals(ConfigurationHeaders.SSDAC_B)
+                || this.header.equals(ConfigurationHeaders.MidPoint)
                 ){
             conf = 2;
         }
-        else if(this.headerOfPanel.equals(ConfigurationHeaders.MidPoint)
-                || this.headerOfPanel.equals(ConfigurationHeaders.FwdExit)
-                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_C)){
+        else if(this.header.equals(ConfigurationHeaders.MidPoint)
+                || this.header.equals(ConfigurationHeaders.FwdExit)
+                || this.header.equals(ConfigurationHeaders.SSDAC_C)
+                || this.header.equals(ConfigurationHeaders.SSDAC_3D2S_Exit)
+                || this.header.equals(ConfigurationHeaders.SSDAC_3D3S_Exit)){
             conf = 3;
         }
-        else if(this.headerOfPanel.equals(ConfigurationHeaders.RvEntry)
-                || this.headerOfPanel.equals(ConfigurationHeaders.SSDAC_D)){
+        else if(this.header.equals(ConfigurationHeaders.RvEntry)
+                || this.header.equals(ConfigurationHeaders.SSDAC_D)){
             conf = 4;
         }        
         return conf;
@@ -252,5 +257,16 @@ public class SimulatorPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel24;
     private javax.swing.JSeparator jSeparator13;
     // End of variables declaration//GEN-END:variables
+
+    void StartCount(int i, int i0) {
+        TxtSpeed.setText(String.valueOf(i));
+        TxtCount.setText(String.valueOf(i0));
+        BtnStart.doClick();        
+    }
+
+    void setSpeedCount(String speed, String count) {
+        TxtSpeed.setText(speed);
+        TxtCount.setText(count);
+    }
 
 }
