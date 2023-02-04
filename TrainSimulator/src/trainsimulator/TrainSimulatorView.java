@@ -1145,7 +1145,7 @@ private class SpeedCount{
         DataFrame sending_packet = df;
         sending_packet.Payload.fwd_reverse = (byte) getFwdReverse();        
         retval = SendData(df);
-        return retval; 
+        return true; 
     } 
     
     

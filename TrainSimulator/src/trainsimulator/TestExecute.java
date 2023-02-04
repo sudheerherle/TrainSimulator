@@ -200,10 +200,10 @@ private boolean hold_update = false;
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     
-    if(TrainSimulatorApp.getApplication().getView().com_connect()==false){
-         jLabel2.setText("Train simulator hardware not found");
-        return;
-    }
+//    if(TrainSimulatorApp.getApplication().getView().com_connect()==false){
+//         jLabel2.setText("Train simulator hardware not found");
+//        return;
+//    }
     Thread te = new Thread(new Runnable() {
     public void run()
     {
@@ -237,7 +237,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         tc.delay = Integer.valueOf(temp);
         }
         if(tc.input.contains("_")|| tc.input.contains("-")){
-        if(TestCaseTask(tc)==false){
+                 if(TestCaseTask(tc)==false){
             break;
         }
         }else{
@@ -310,6 +310,7 @@ private boolean LoadTable(int sheetIndex){
 }
 public boolean TestCaseTask(TestCase tc){
     boolean retval = false;
+    System.out.println("Case name: "+tc.input);
     byte[] speed_result = new byte[4];
     String speed= "",speed1 = "",speed2 = "";
     df = new DataFrame();
@@ -329,6 +330,18 @@ public boolean TestCaseTask(TestCase tc){
                        df = getNewFrame((byte)2);
                    }
                }
+               else if(tc.input.contains("e") || tc.input.contains("E")
+                       || tc.input.contains("f") || tc.input.contains("F")){
+                   if(df.Payload.configuration != (byte)0x3){
+                       df = getNewFrame((byte)3);
+                   }
+               }
+               else if(tc.input.contains("g") || tc.input.contains("G")
+                       || tc.input.contains("h") || tc.input.contains("H")){
+                   if(df.Payload.configuration != (byte)0x4){
+                       df = getNewFrame((byte)4);
+                   }
+               }
                ByteBuffer b = ByteBuffer.allocate(4);
                 //b.order(ByteOrder.BIG_ENDIAN); // optional, the initial order of a byte buffer is always BIG_ENDIAN.
                b.putInt(df.Payload.speed);
@@ -345,7 +358,20 @@ public boolean TestCaseTask(TestCase tc){
                }
                if(tc.input.charAt(s) == 'd' || tc.input.charAt(s) == 'D'){
                   speed_result[2] = getSpeed(tc,s);
-               }                
+               }    
+               
+               if(tc.input.charAt(s) == 'e' || tc.input.charAt(s) == 'E'){
+                  speed_result[3] = getSpeed(tc,s);
+               }  
+               if(tc.input.charAt(s) == 'f' || tc.input.charAt(s) == 'F'){
+                  speed_result[2] = getSpeed(tc,s);
+               }  
+               if(tc.input.charAt(s) == 'g' || tc.input.charAt(s) == 'G'){
+                  speed_result[3] = getSpeed(tc,s);
+               }  
+               if(tc.input.charAt(s) == 'h' || tc.input.charAt(s) == 'H'){
+                  speed_result[2] = getSpeed(tc,s);
+               }  
             }           
             df.Payload.speed = ByteBuffer.wrap(speed_result).getInt();
             retval =  TrainSimulatorApp.getApplication().getView().SendPacketRecieveResponse(df);
